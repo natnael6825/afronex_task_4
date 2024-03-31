@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1775172545",
+    "project_id": "afronex-e762b",
+    "storage_bucket": "afronex-e762b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1775172545:android:21fad9de505c554d8ecd40",
+        "android_client_info": {
+          "package_name": "com.example.afronex_task_4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsHhvH463OOMQuNi70_vIT2X6NVHlCsmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

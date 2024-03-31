@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyC6aOfA5XsXz909fbZg3rMfIQ5wQM_5n1s</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1775172545</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.afronexTask4.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>afronex-e762b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>afronex-e762b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1775172545:ios:22346c17573d95e48ecd40</string>
+</dict>
+</plist>
