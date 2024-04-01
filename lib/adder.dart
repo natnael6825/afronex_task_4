@@ -16,6 +16,7 @@ class _AdderState extends State<Adder> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+    TextEditingController catagorycontroller = TextEditingController();
   TextEditingController collectionController =
       TextEditingController(); // New field for collection name
 
@@ -100,6 +101,7 @@ class _AdderState extends State<Adder> {
         'name': nameController.text,
         'description': descriptionController.text,
         'price': priceController.text,
+        'catagory':catagorycontroller.text,
         'image_url': url,
       });
     } catch (e) {
@@ -144,6 +146,10 @@ class _AdderState extends State<Adder> {
               TextFormField(
                 controller: nameController,
                 decoration: InputDecoration(labelText: 'Name'),
+              ),SizedBox(height: 20),
+              TextFormField(
+                controller: catagorycontroller,
+                decoration: InputDecoration(labelText: 'Name'),
               ),
               SizedBox(height: 20),
               TextFormField(
@@ -151,6 +157,11 @@ class _AdderState extends State<Adder> {
                 decoration: InputDecoration(labelText: 'Description'),
               ),
               SizedBox(height: 20),
+              TextFormField(
+                controller: priceController,
+                decoration: InputDecoration(labelText: 'Price'),
+                keyboardType: TextInputType.number,
+              ),  SizedBox(height: 20),
               TextFormField(
                 controller: priceController,
                 decoration: InputDecoration(labelText: 'Price'),
