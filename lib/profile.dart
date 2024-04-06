@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilePage extends StatelessWidget {
+  final userdata = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -21,7 +24,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
-               SizedBox(height: 30),
+              SizedBox(height: 30),
               CircleAvatar(
                 radius: 50,
                 backgroundImage: AssetImage(
@@ -29,14 +32,11 @@ class ProfilePage extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Natnael Fikre', // Name
+                userdata.email.toString(), // Name
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 5),
-              Text(
-                '@natnael', // Nickname
-                style: TextStyle(fontSize: 16, color: Colors.grey),
-              ),
+             
               SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
@@ -186,7 +186,7 @@ class ProfilePage extends StatelessWidget {
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          FirebaseAuth.instance.signOut();
                         },
                         child: Text('Logout'),
                         style: OutlinedButton.styleFrom(

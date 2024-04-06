@@ -44,7 +44,7 @@ class CategoryItemsPage extends StatelessWidget {
               Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               String imageUrl = data['image_url'];
               String productName = data['name'];
-              String description = data['description'];
+           
               double productPrice = double.parse(data['price']);
 
               return GestureDetector(

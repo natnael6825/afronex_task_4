@@ -1,9 +1,10 @@
 
 
 
+
+
 import 'package:afronex_task_4/adder.dart';
-import 'package:afronex_task_4/loginpage.dart';
-import 'package:afronex_task_4/splashscreen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
 primaryColor: Color.fromARGB(255, 121, 0, 169),
     ) ,
 
-home: splashScreen(),
+
+home: Adder(),
 
 
     );

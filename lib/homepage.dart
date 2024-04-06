@@ -1,3 +1,4 @@
+import 'package:afronex_task_4/myitems.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'catalog.dart';
@@ -17,7 +18,9 @@ class _HomepageState extends State<Homepage> {
   List<Widget> pages = [
     CatalogScreen(),
     Cards(),
+   MyItems(),
     ProfilePage(),
+    
   ];
 
   @override
@@ -32,6 +35,7 @@ class _HomepageState extends State<Homepage> {
         icons: [
           Icons.home,
           Icons.shopping_cart,
+          Icons.badge_outlined,
           Icons.account_circle,
         ],
         inactiveColor: Colors.black.withOpacity(0.5),

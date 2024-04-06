@@ -118,17 +118,17 @@ class _AdderState extends State<Adder> {
   }
 
   Future<void> _takePicture() async {
-    final XFile? pickedImage = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 50,
-      maxWidth: 800,
-      maxHeight: 600,
-    );
+  final XFile? pickedImage = await _picker.pickImage(
+    source: ImageSource.gallery, // Change source to gallery
+    imageQuality: 50,
+    maxWidth: 800,
+    maxHeight: 600,
+  );
 
-    setState(() {
-      _image = pickedImage;
-    });
-  }
+  setState(() {
+    _image = pickedImage;
+  });
+}
 
   @override
   Widget build(BuildContext context) {

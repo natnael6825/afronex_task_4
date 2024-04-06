@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final String category;
   final String documentId;
 
-  const DetailScreen({
+   DetailScreen({
     required this.category,
     required this.documentId,
   });
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +29,8 @@ class DetailScreen extends StatelessWidget {
       body: FutureBuilder<DocumentSnapshot>(
         future: FirebaseFirestore.instance
             .collection(
-                '$category') // Use the category to construct the collection name
-            .doc(documentId)
+                '${widget.category}') // Use the category to construct the collection name
+            .doc(widget.documentId)
             .get(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -95,19 +105,46 @@ class DetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
                   width: double.infinity, // Make the button width full
-                  child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Add to Cart'),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.red,
-                          side: BorderSide(
-                            color: const Color.fromARGB(255, 220, 177, 174),
-                            width: 2, // Border thickness
-                          ),
-                        ),
-                      ),
+                  child:OutlinedButton(
+  onPressed: () async {
+    // Get current user ID
+    final userdata = FirebaseAuth.instance.currentUser;
+    if (userdata == null) {
+      // Handle scenario where no user is signed in
+      return;
+    }
+    final userId = userdata.uid;
+
+    // Prepare data to be added to the cart
+    Map<String, dynamic> cartData = {
+      'userId': userId,
+      'category': widget.category,
+      'itemId': widget.documentId,
+      // Add any additional data you want to store in the cart
+    };
+
+    try {
+      // Add the cart item to the Firestore collection
+      await FirebaseFirestore.instance.collection('cart').add(cartData);
+      print('Item added to cart successfully!');
+    } catch (error) {
+      print('Failed to add item to cart: $error');
+    }
+
+    // Navigate back to the previous screen
+    Navigator.pop(context);
+    
+  },
+  child: Text('Add to Cart'),
+  style: OutlinedButton.styleFrom(
+    foregroundColor: Colors.red,
+    side: BorderSide(
+      color: const Color.fromARGB(255, 220, 177, 174),
+      width: 2, // Border thickness
+    ),
+  ),
+),
+
                 ),
               ),
             ],
