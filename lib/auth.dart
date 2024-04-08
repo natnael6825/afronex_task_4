@@ -1,3 +1,6 @@
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
+
+
 
 import 'package:afronex_task_4/homepage.dart';
 import 'package:afronex_task_4/loginpage.dart';

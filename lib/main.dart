@@ -1,9 +1,11 @@
 
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
 
 
 
 
-import 'package:afronex_task_4/adder.dart';
+
+import 'package:afronex_task_4/splashscreen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +38,7 @@ primaryColor: Color.fromARGB(255, 121, 0, 169),
     ) ,
 
 
-home: Adder(),
+home: splashScreen(),
 
 
     );

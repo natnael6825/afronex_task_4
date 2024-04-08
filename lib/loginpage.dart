@@ -1,3 +1,7 @@
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
+
+
+
 import 'package:afronex_task_4/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

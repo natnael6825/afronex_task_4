@@ -1,3 +1,8 @@
+
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
+
+
+
 import 'dart:async';
 
 import 'package:afronex_task_4/auth.dart';

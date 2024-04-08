@@ -1,3 +1,7 @@
+
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,7 +57,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Future<void> _loadCurrentUserEmail() async {
     if (_user != null) {
       setState(() {
-        emailController.text = _user!.email ?? '';
+        emailController.text = _user.email ?? '';
       });
     }
   }
@@ -136,10 +140,8 @@ class _PaymentPageState extends State<PaymentPage> {
               Text('Select a Saved Card:'),
               ...cardDocs.map((doc) {
                 final cardData = doc.data() as Map;
-                if (cardData == null) return SizedBox();
                 String cardNumber = cardData['cardNumber'];
                 String expireDate = cardData['expireDate'];
-                if (cardNumber == null || expireDate == null) return SizedBox();
                 return ListTile(
                   title: Row(
                     children: [
@@ -216,7 +218,7 @@ class _PaymentPageState extends State<PaymentPage> {
     // Remove items from cart collection
     await FirebaseFirestore.instance
         .collection('cart')
-        .where('userId', isEqualTo: _user!.uid)
+        .where('userId', isEqualTo: _user.uid)
         .get()
         .then((snapshot) {
       for (DocumentSnapshot doc in snapshot.docs) {
