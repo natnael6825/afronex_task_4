@@ -1,7 +1,3 @@
-
-// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
-
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,62 +57,78 @@ class _MyItemsState extends State<MyItems> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: items.map<Widget>((item) {
-                            return FutureBuilder<DocumentSnapshot>(
-                              future: FirebaseFirestore.instance
-                                  .collection(item['category'])
-                                  .doc(item['itemId'])
-                                  .get(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                                if (snapshot.hasError || !snapshot.hasData) {
-                                  return Text('Error fetching item');
-                                }
+                            return Padding(
+                              padding: EdgeInsets.all(8.0), // Add padding around the items
+                              child: FutureBuilder<DocumentSnapshot>(
+                                future: FirebaseFirestore.instance
+                                    .collection(item['category'])
+                                    .doc(item['itemId'])
+                                    .get(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                  if (snapshot.hasError || !snapshot.hasData) {
+                                    return Text('Error fetching item');
+                                  }
 
-                                final itemData = snapshot.data!.data()
-                                    as Map<String, dynamic>;
-                                final name = itemData['name'] ?? '';
-                                final description =
-                                    itemData['description'] ?? '';
-                                final imageURL = itemData['image_url'] ??
-                                    ''; // Assuming there's an imageURL field
+                                  final itemData = snapshot.data!.data()
+                                      as Map<String, dynamic>;
+                                  final name = itemData['name'] ?? '';
+                                  final description =
+                                      itemData['description'] ?? '';
+                                  final imageURL = itemData['image_url'] ??
+                                      ''; // Assuming there's an imageURL field
 
-                                return Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  padding: EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      image: NetworkImage(imageURL),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        name,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        description,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
+                                 return SizedBox(
+  width: double.infinity, // Expand to fit width
+  height: 200, // Fixed height for consistency
+  child: Stack(
+    fit: StackFit.expand,
+    children: [
+      if (snapshot.hasData)
+        Image.network(
+          imageURL,
+          fit: BoxFit.cover,
+        ),
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.6),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (snapshot.hasData)
+                Text(
+                  name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              SizedBox(height: 10),
+              if (snapshot.hasData)
+                Text(
+                  description,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  ),
+);
+
+                                },
+                              ),
                             );
                           }).toList(),
                         );

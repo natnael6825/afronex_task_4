@@ -1,7 +1,3 @@
-
-// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
-
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,9 +75,15 @@ class _CardsState extends State<Cards> {
                         .doc(itemId)
                         .get()
                         .then((value) => value['price']);
+                    final itemImageFuture = FirebaseFirestore.instance
+                        .collection(category)
+                        .doc(itemId)
+                        .get()
+                        .then((value) => value['image_url']);
 
                     return FutureBuilder(
-                      future: Future.wait([itemNameFuture, itemPriceFuture]),
+                      future: Future.wait(
+                          [itemNameFuture, itemPriceFuture, itemImageFuture]),
                       builder:
                           (context, AsyncSnapshot<List<dynamic>> snapshot) {
                         if (snapshot.connectionState ==
@@ -101,6 +103,7 @@ class _CardsState extends State<Cards> {
                         final itemPrice =
                             double.tryParse(snapshot.data![1].toString()) ??
                                 0.0;
+                        final itemImage = snapshot.data?[2];
 
                         // Update totalPrice and cartList
                         totalPrice += itemPrice;
@@ -112,26 +115,62 @@ class _CardsState extends State<Cards> {
                         });
 
                         return Card(
-                          child: ListTile(
-                            title: Text(itemName ?? 'Unknown'),
-                            subtitle: Text('\$$itemPrice'),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                // Remove item from cart collection
-                                FirebaseFirestore.instance
-                                    .collection('cart')
-                                    .doc(cartItem.id)
-                                    .delete();
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(itemImage ?? ''),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        itemName ?? 'Unknown',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        '\$$itemPrice',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    // Remove item from cart collection
+                                    FirebaseFirestore.instance
+                                        .collection('cart')
+                                        .doc(cartItem.id)
+                                        .delete();
 
-                                // Update totalPrice and cartList when an item is deleted
-                                setState(() {
-                                  totalPrice -= itemPrice;
-                                  cartList.removeWhere((item) =>
-                                      item['name'] == itemName &&
-                                      item['price'] == itemPrice);
-                                });
-                              },
+                                    // Update totalPrice and cartList when an item is deleted
+                                    setState(() {
+                                      totalPrice -= itemPrice;
+                                      cartList.removeWhere((item) =>
+                                          item['name'] == itemName &&
+                                          item['price'] == itemPrice);
+                                    });
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         );
@@ -155,7 +194,7 @@ class _CardsState extends State<Cards> {
                           actions: [
                             TextButton(
                               onPressed: () {
-Navigator.pop(context);
+                                Navigator.pop(context);
 
                                 // Navigate to PaymentPage with total price, cartList, category, and item ID
                                 Navigator.push(

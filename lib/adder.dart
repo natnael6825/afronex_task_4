@@ -152,7 +152,7 @@ class _AdderState extends State<Adder> {
               ),SizedBox(height: 20),
               TextFormField(
                 controller: catagorycontroller,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: 'catagory Name'),
               ),
               SizedBox(height: 20),
               TextFormField(

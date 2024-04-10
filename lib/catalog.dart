@@ -57,6 +57,7 @@ class CatalogScreen extends StatelessWidget {
   }
 
   Widget _buildTopSection1() {
+
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance
           .collection('catagory')
@@ -120,6 +121,7 @@ class CatalogScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                           image: NetworkImage(
+                            
                             snapshot.data!.docs[0]['image_url'],
                           ),
                           fit: BoxFit.cover,

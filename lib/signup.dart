@@ -1,7 +1,6 @@
-
 // ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, sort_child_properties_last
 
-
+import 'package:afronex_task_4/auth.dart';
 import 'package:afronex_task_4/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +38,9 @@ class _SignupState extends State<Signup> {
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
+                    MaterialPageRoute(
+                      builder: (context) => Authpage(),
+                    );
                   },
                   child: Text('OK'),
                 ),
@@ -169,7 +171,9 @@ class _SignupState extends State<Signup> {
                         prefixIcon: Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -191,11 +195,14 @@ class _SignupState extends State<Signup> {
                         prefixIcon: Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            isConfirmPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
-                              isConfirmPasswordVisible = !isConfirmPasswordVisible;
+                              isConfirmPasswordVisible =
+                                  !isConfirmPasswordVisible;
                             });
                           },
                         ),
